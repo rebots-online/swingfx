@@ -3,10 +3,16 @@ project_id: "swingfx"
 canonical_name: "SwingF/X"
 artifact_id: "checklist-swingfx-v0.1.0"
 artifact_type: "frozen_implementation_checklist"
-document_revision: "1.0.0"
-architecture_revision: "v0.1.0-frozen"
+document_revision: "2"
+architecture_revision: "swingfx-architecture-r2"
 parent_architecture_artifact: "arch-swingfx-v0.1.0"
-source_commit_id: "HEAD-initial-swingfx-v0.1"
+source_commit_id: "5f134ad89fb7336c52445db0fb58c8cf45b5737f"
+updated_at: "2026-10-14T11:20:20-04:00"
+change_request: "SWINGFX-VERSION-001"
+application_version_source: "version.txt"
+application_version_runtime_mirror: "version.json"
+allowed_change_scope: ["versioning", "release_badge", "assessment_build_identity"]
+verification_evidence: "Recorded below after execution; original task statuses are inherited, not re-certified."
 created_at: "2026-10-13T22:34:00-07:00"
 status: "FROZEN_FOR_EXECUTION"
 kstore_refs:
@@ -21,6 +27,39 @@ agent_execution_profile:
   stateless_task_isolation: true
   orchestrator_protocol: "ACP-1.0"
 tasks:
+  - task_id: "TASK-008-VERSION"
+    gate: "GATE-VERSION-IDENTITY"
+    title: "Adopt canonical build stamping and bottom-right application version"
+    depends_on: ["TASK-005"]
+    owner_role: "stateless_glm_worker_agent"
+    status: "READY"
+    inputs:
+      - "DOCS/ARCHITECTURE.md#6-canonical-build-identity-and-bottom-right-version-display"
+      - "Admin-Manual/versioning/update-version.sh (blob 638f18c47064bd6a7a96405ded7b82eee26de306)"
+    outputs:
+      - "scripts/update-version.sh"
+      - "version.txt"
+      - "version.json"
+      - "package.json"
+      - "tsconfig.json"
+      - "src/App.tsx"
+      - "src/index.css"
+      - "src/services/diagnosticEngine.ts"
+    execution_recipe:
+      - "Read frozen architecture section 6; copy the existing stamper and fill in SwingF/X product identity."
+      - "Add a preflight jq dependency check without changing the canonical version algorithm."
+      - "Seed version.txt at major 1/minor 0; connect predev/prebuild and explicit version:update."
+      - "Enable JSON imports and bind the badge and assessment build metadata to version.json."
+      - "Remove hardcoded app-release labels; reserve bottom spacing and safe-area offsets."
+      - "Run scoped verification; record evidence and commit only documented changes."
+    acceptance_criteria:
+      - "Each unlocked stamper invocation increments MINOR; BUILD has exactly five digits."
+      - "version.txt, version.json.version, and package.json.version agree after stamping."
+      - "release.lock preserves one identity across repeated stamps."
+      - "The visible label reads vMAJOR.MINOR.BUILD at the viewport bottom right on desktop/mobile."
+      - "CV assessment build identity comes from version.json; diagnostic calculations remain unchanged."
+    verification_procedure: "bash -n scripts/update-version.sh; isolated stamper increment/lock check; npm run lint; npm run build; desktop/mobile render inspection"
+
   - task_id: "TASK-001"
     gate: "GATE-0-DOGMA"
     title: "Initialize SwingF/X project metadata, dependencies, and TypeScript domain contracts"
@@ -155,7 +194,7 @@ tasks:
     verification_procedure: "npm run lint && npm run build"
 ---
 
-# SwingF/X (`swingfx`) — Frozen Implementation Checklist (v0.1)
+# SwingF/X (`swingfx`) — Frozen Implementation Checklist
 
 ## Execution Discipline & Gate Order
 
@@ -166,3 +205,9 @@ This checklist is derived directly from `DOCS/ARCHITECTURE.md` (`arch-swingfx-v0
 3. **GATE-2 (`TASK-004`, `TASK-005`)**: Full 6-stage Corrective Learning Loop UI, 2D synchronized overlay, 3D Three.js Skeleton Inspector with collapsible bottom dock, Before/After retest comparison, Coach Override drawer, and unprompted retention testing.
 4. **GATE-3 (`TASK-006`)**: Server-side Gemini 4 Argon (`ThinkingLevel.HIGH`) diagnostic & video interpretation proxy, multi-turn Coach Chat, and Gemini 3.8 Live hands-free drill cadence coach.
 5. **GATE-4 (`TASK-007`)**: Firebase Authentication and Firestore longitudinal persistence with hardened security rules.
+
+## Release-Identity Amendment
+
+`TASK-008-VERSION` implements architecture revision `swingfx-architecture-r2`, section 6. Application versions come from `version.txt` / `version.json`; the inherited artifact IDs and heuristic schema revisions are not release labels. This task does not re-certify the original CV/coaching completion claims.
+
+Verification evidence: pending execution.
