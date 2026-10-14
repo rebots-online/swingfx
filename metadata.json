@@ -1,0 +1,6 @@
+{
+  "name": "SwingF/X",
+  "description": "Diagnose My Swing — and Fix It! Evidence-grounded AI squash technique coach with MediaPipe pose kinematics, configurable fault heuristics, DTW retest validation, and retention tracking.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
