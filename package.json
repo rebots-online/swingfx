@@ -1,10 +1,13 @@
 {
   "name": "swingfx",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.2.66522",
   "type": "module",
   "scripts": {
+    "version:update": "bash scripts/update-version.sh",
+    "predev": "npm run version:update",
     "dev": "tsx server.ts",
+    "prebuild": "npm run version:update",
     "build": "vite build",
     "start": "tsx server.ts",
     "preview": "vite preview",

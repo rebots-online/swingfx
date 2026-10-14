@@ -3,9 +3,15 @@ project_id: "swingfx"
 canonical_name: "SwingF/X"
 artifact_id: "arch-swingfx-v0.1.0"
 artifact_type: "architecture_digital_twin"
-document_revision: "1.0.0"
-architecture_revision: "v0.1.0-frozen"
-source_commit_id: "HEAD-initial-swingfx-v0.1"
+document_revision: "2"
+architecture_revision: "swingfx-architecture-r2"
+source_commit_id: "5f134ad89fb7336c52445db0fb58c8cf45b5737f"
+updated_at: "2026-10-14T11:20:20-04:00"
+change_request: "SWINGFX-VERSION-001: canonical automatic versioning and persistent bottom-right release label"
+application_version_source: "version.txt"
+application_version_runtime_mirror: "version.json"
+version_stamper_source: "https://github.com/rebots-online/Admin-Manual/blob/master/versioning/update-version.sh"
+version_stamper_source_blob: "638f18c47064bd6a7a96405ded7b82eee26de306"
 created_at: "2026-10-13T22:34:00-07:00"
 status: "FROZEN"
 depends_on: []
@@ -60,11 +66,11 @@ verification_gates:
     command: "npm run lint && npm run build"
 ---
 
-# SwingF/X (`swingfx`) — Authoritative System Architecture (v0.1)
+# SwingF/X (`swingfx`) — Authoritative System Architecture
 
 ## 1. Executive Purpose & Central Dogma
 
-**SwingF/X** ("Diagnose My Swing — and Fix It!") is a standalone AI-assisted squash technique coach designed to identify consequential, correctable mechanical faults across swing repetitions, formulate evidence-grounded causal hypotheses (or abstain when video evidence is insufficient), prescribe a single-variable corrective drill and cue, and verify whether the correction improves execution and persists across unprompted retention tests.
+**SwingF/X** ("Diagnose My Swing — and Fix It!") is a standalone AI-assisted squash technique coach designed to identify consequential, correctable mechanical faults across swing repetitions, formulate evidence-grounded causal hypotheses (or abstain when video evidence is insufficient), prescribe a single-variable corrective drill and cue, and verify whether the correction improves execution and persists across unprompted retention tests. The application release identity is read from `version.txt` and its generated `version.json` mirror; document and heuristic schema revisions are independent identifiers.
 
 ### 1.1 Architectural Invariants
 1. **CV-First Technical Gate (`INV-01`)**: Genuine video processing, pose landmark extraction, repetition segmentation, and quantitative kinematic measurement must execute and verify locally before any cloud database, billing, or generative LLM dependency is invoked.
@@ -192,3 +198,18 @@ All thresholds are configurable in the `HeuristicRegistry` and carry `provenance
 
 ### 5.2 Commercial Identity & Entitlement Boundary (`IdentityBillingAdapter`)
 - Defines a clean adapter interface (`getCurrentActor()`, `getEntitlementTier()`, `canAccessFeature()`) supporting local anonymous coaching, Firebase Google Sign-In, and future BIDLR/BIDLLER centralized subscription federation without coupling core coaching logic to billing infrastructure.
+
+---
+
+## 6. Canonical Build Identity and Bottom-Right Version Display
+
+`SWINGFX-VERSION-001` is a scoped release-identity amendment, frozen before implementation. The motion, diagnostic, comparator, and heuristic algorithms are outside this amendment.
+
+- Copy the canonical Admin-Manual stamper to `scripts/update-version.sh`; customize only the product identity (`SwingF/X`, `swingfx`, `mba.robin.swingfx`). Preserve its increment and `release.lock` behavior. Require `jq` before stamping so the script cannot silently leave `package.json` stale.
+- `version.txt` is the single writable release authority. `version.json` and `package.json.version` are generated projections. Bootstrap the manual major milestone at `1`, with minor `0`; the first stamper invocation produces `1.1.BBBBB`.
+- Format: `MAJOR.MINOR.BUILD`. MAJOR is a manual milestone; MINOR increments inside the stamper on each unlocked invocation; BUILD is epoch minutes modulo 100000, padded to five digits. The UI adds the `v` prefix. Never hardcode the example build number or derive a parallel runtime version.
+- `npm run dev` and `npm run build` invoke the stamper through `predev` and `prebuild`. `npm start` retains the committed/stamped identity. A provided `release.lock` keeps multi-artifact builds on one version; it is not committed as a default permanent freeze.
+- `App.tsx` imports root `version.json` and shows its version in a small fixed badge at the viewport's bottom right in every workspace view. Safe-area offsets and bottom padding preserve mobile visibility and prevent footer overlap. The badge does not intercept pointer events.
+- Remove the hardcoded application version in the left footer. Visible heuristic labels describe their provisional status without presenting a second app version. Stored heuristic schema identifiers remain stable.
+- Assessment `cvPipelineVersion` uses the same generated release identity, while the third-party MediaPipe model version and heuristic dataset provenance retain their own identifiers.
+- Verification: check shell syntax; confirm a real stamper run advances MINOR and agrees across `version.txt`, `version.json`, and `package.json`; confirm locked re-stamping preserves identity in an isolated temporary fixture; run TypeScript and production-build checks; inspect the badge at desktop and mobile viewport sizes. Record existing environment/build failures separately from this amendment's results.
