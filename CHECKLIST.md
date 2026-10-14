@@ -32,7 +32,7 @@ tasks:
     title: "Adopt canonical build stamping and bottom-right application version"
     depends_on: ["TASK-005"]
     owner_role: "stateless_glm_worker_agent"
-    status: "READY"
+    status: "COMPLETED"
     inputs:
       - "DOCS/ARCHITECTURE.md#6-canonical-build-identity-and-bottom-right-version-display"
       - "Admin-Manual/versioning/update-version.sh (blob 638f18c47064bd6a7a96405ded7b82eee26de306)"
@@ -210,4 +210,14 @@ This checklist is derived directly from `DOCS/ARCHITECTURE.md` (`arch-swingfx-v0
 
 `TASK-008-VERSION` implements architecture revision `swingfx-architecture-r2`, section 6. Application versions come from `version.txt` / `version.json`; the inherited artifact IDs and heuristic schema revisions are not release labels. This task does not re-certify the original CV/coaching completion claims.
 
-Verification evidence: pending execution.
+Verification evidence for `TASK-008-VERSION` (2026-10-14):
+
+- `bash -n scripts/update-version.sh`: passed.
+- Isolated canonical-stamper fixture: consecutive unlocked runs advanced minor `7 -> 8 -> 9`; `version.txt`, `version.json`, and `package.json` agreed; repeated locked runs retained `1.9.00042` with five-digit padding.
+- `npm run build`: passed, including automatic `prebuild` stamping. The committed release identity is available in `version.txt` and `version.json`.
+- `npm run lint` (`tsc --noEmit`): passed.
+- Chromium production-preview checks at 1440×960 and 375×812: badge matched `version.json`, remained fixed 12 px from the right and 8 px from the bottom, and retained placement after navigation and scrolling. No page errors. Desktop/mobile screenshots were visually inspected.
+- `git diff --check`: passed.
+- Existing dependency issue: plain `npm install` fails because `@vitejs/plugin-react@6.1.2` requires Vite 8 while this repository declares Vite 6. Validation used `npm install --ignore-scripts --package-lock=false --legacy-peer-deps`; dependency declarations and the existing Bun lockfile were not changed in this scoped amendment.
+
+These checks validate the versioning amendment. They do not establish the accuracy of pose extraction, biomechanics, phase segmentation, or corrective-outcome claims.

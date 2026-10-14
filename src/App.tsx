@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import buildVersion from '../version.json';
 import {
   CoachReviewStatus,
   CorrectionOutcome,
@@ -493,7 +494,7 @@ export const App: React.FC = () => {
     : [];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FBF9F5] text-[#18181B]">
+    <div className="app-shell min-h-screen flex flex-col bg-[#FBF9F5] text-[#18181B]">
       {/* ====================================================================
           STRICT 3-ZONE TOP BAR CONTRACT (Per Frontend-Design Skill Section 2)
           [Zone 1: Single-line Brand Wordmark] — [Zone 2: 4 Nav Links] — [Zone 3: 1 Primary CTA]
@@ -579,7 +580,7 @@ export const App: React.FC = () => {
               <span aria-hidden="true">·</span>
               <span>BODY-RELATIVE POSE KINEMATICS</span>
               <span aria-hidden="true">·</span>
-              <span>PROVISIONAL HEURISTICS v0.1</span>
+              <span>PROVISIONAL HEURISTICS</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#18181B] leading-[1.08]">
               Diagnose My Swing.{' '}
@@ -985,7 +986,7 @@ export const App: React.FC = () => {
                                   <div className="text-[11px] text-[#52525B]">
                                     {primaryFault.heuristicSnapshot.provenance === 'COACH_OVERRIDE'
                                       ? 'Coach Override'
-                                      : 'Provisional v0.1'}
+                                      : 'Provisional heuristic'}
                                   </div>
                                 </div>
                                 <div>
@@ -1719,7 +1720,7 @@ export const App: React.FC = () => {
         <div className="max-w-[1360px] mx-auto flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Layers className="w-3.5 h-3.5 text-[#C84B31]" />
-            <span className="font-semibold text-[#18181B]">SwingF/X v0.1</span>
+            <span className="font-semibold text-[#18181B]">SwingF/X</span>
             <span aria-hidden="true">·</span>
             <span>Diagnose My Swing — and Fix It!</span>
           </div>
@@ -1730,6 +1731,9 @@ export const App: React.FC = () => {
           </div>
         </div>
       </footer>
+      <span className="app-version" aria-label={`SwingF/X version ${buildVersion.version}`}>
+        v{buildVersion.version}
+      </span>
     </div>
   );
 };

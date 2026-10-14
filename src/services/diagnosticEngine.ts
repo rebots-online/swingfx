@@ -21,6 +21,7 @@ import {
 } from './kinematicsEngine';
 import { computeDTWAlignment } from './dtwEngine';
 import { ReferenceSquashClipSpec } from './videoReferenceGenerator';
+import buildVersion from '../../version.json';
 
 /**
  * Evaluates extracted observations against the configurable heuristic taxonomy,
@@ -107,7 +108,7 @@ export function evaluateTechniqueAssessment(params: {
       videoSourceType,
       referenceClipId: referenceClip?.clipId,
       modelVersion: 'mediapipe-pose-landmarker-v0.10.34',
-      cvPipelineVersion: 'swingfx-cv-v0.1.0',
+      cvPipelineVersion: `swingfx-cv-v${buildVersion.version}`,
       heuristicVersion: 'provisional-heuristics-v0.1',
       venue,
       courtConfig,
@@ -152,7 +153,7 @@ export function evaluateTechniqueAssessment(params: {
       videoSourceType,
       referenceClipId: referenceClip?.clipId,
       modelVersion: 'mediapipe-pose-landmarker-v0.10.34',
-      cvPipelineVersion: 'swingfx-cv-v0.1.0',
+      cvPipelineVersion: `swingfx-cv-v${buildVersion.version}`,
       heuristicVersion: 'provisional-heuristics-v0.1',
       venue,
       courtConfig,
@@ -383,7 +384,7 @@ export function evaluateTechniqueAssessment(params: {
     videoSourceType,
     referenceClipId: referenceClip?.clipId,
     modelVersion: 'mediapipe-pose-landmarker-v0.10.34',
-    cvPipelineVersion: 'swingfx-cv-v0.1.0',
+    cvPipelineVersion: `swingfx-cv-v${buildVersion.version}`,
     heuristicVersion: 'provisional-heuristics-v0.1',
     venue,
     courtConfig,

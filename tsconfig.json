@@ -6,6 +6,7 @@
     "lib": ["ES2023", "DOM", "DOM.Iterable", "ESNext.Temporal"],
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
+    "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "strict": true,
